@@ -267,7 +267,12 @@ function addToSubmissions(params) {
     submissions,
   } = params;
 
-  for (const submission of response.data.data.submissionList.submissions) {
+  const submissionList = response.data?.data?.submissionList;
+  const submissionItems = Array.isArray(submissionList?.submissions)
+    ? submissionList.submissions
+    : [];
+
+  for (const submission of submissionItems) {
     submissionTimestamp = Number(submission.timestamp);
     if (submissionTimestamp <= lastTimestamp) {
       return false;
